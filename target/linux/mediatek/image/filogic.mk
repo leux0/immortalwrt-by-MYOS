@@ -140,46 +140,9 @@ C2000MAX_MYOS_ROOTFS_PSEUDO := $(KDIR)/root-c2000max-MYOS.pseudo
 C2000MAX_SD_KERNEL := $(KDIR)/nradio_c2000-max-sd-kernel.bin
 C2000MAX_EXTRA_IPK_TMP := $(KDIR)/root-c2000max-ipk-payload
 C2000MAX_ROOTFS_ID := $(VERSION_NUMBER)-$(REVISION)
-C2000MAX_EXTRA_IPK_PACKAGES := \
-	flock ip6tables-nft iptables-mod-socket kmod-ipt-socket kmod-ipt-nat-extra iptables-mod-nat-extra python3-ctypes luci-app-uugamebooster mt5700-web-go luci-app-mt5700-web \
-	luci-theme-myos-new luci-app-myos-system luci-light cgi-io bc jq libreadline8 libncurses6 terminfo \
-	resize2fs fstools block-mount losetup libsmartcols1 libblkid1 libuuid1 f2fsck mkf2fs libf2fs6 \
-	luci-app-store taskd luci-lib-taskd luci-lib-xterm \
-	quickfile luci-app-quickfile luci-i18n-quickfile-zh-cn luci-nginx nginx-ssl nginx-mod-luci nginx-mod-ubus nginx-ssl-util uwsgi uwsgi-cgi-plugin uwsgi-syslog-plugin uwsgi-luci-support \
-	openvpn-openssl kmod-tun libcap-ng liblzo2 liblz4-1 \
-	luci-app-openvpn luci-i18n-openvpn-zh-cn \
-	luci-compat luci-lib-jsonc kmod-oaf appfilter luci-app-oaf luci-i18n-oaf-zh-cn \
-	kmod-leds-gpio \
-	zram-swap kmod-zram \
-	script-utils coreutils-stty \
-	miniupnpd-nftables luci-app-upnp luci-i18n-upnp-zh-cn \
-	iwinfo libiwinfo20230701 libiwinfo-data rpcd-mod-iwinfo fancontrol \
-	libpython3-3.11 python3-base python3-light libbz2-1.0 zlib \
-	bash \
-	coreutils-base64 coreutils-nohup coreutils-timeout lyaml \
-	libyaml libudns resolveip libev \
-	libsodium ip-full libuci-lua libbpf1 \
-	libelf1 libip4tc2 libip6tc2 iptables-mod-tproxy iptables-mod-extra kmod-ipt-extra libpcap1 ipset \
-	libipset13 tc-full conntrack conntrackd \
-	libnetfilter-cthelper0 libnetfilter-cttimeout1 libnetfilter-queue1 libltdl7 \
-	liblua5.3-5.3 \
-	kmod-fuse kmod-sound-core kmod-input-core \
-	kmod-ipt-conntrack-extra kmod-nf-conncount kmod-ipt-ipopt kmod-ipt-filter \
-	kmod-fs-cifs kmod-fs-smbfs-common kmod-fs-netfs kmod-nls-ucs2-utils kmod-oid-registry kmod-dnsresolver \
-	kmod-md-mod kmod-md-raid0 kmod-md-raid1 kmod-md-raid10 \
-	qemu-x86_64-softmmu qemu-aarch64-softmmu qemu-img qemu-bridge-helper \
-	qemu-firmware-pxe qemu-firmware-seabios qemu-firmware-seavgabios qemu-firmware-efi qemu-keymaps \
-	glib2 libffi libattr libpcre2 libstdcpp6 libusb-1.0-0 libudev-zero libevdev \
-	libpng libseccomp libfdt libslirp pixman lua-md5
+C2000MAX_EXTRA_IPK_PACKAGES := 
 
-C2000MAX_REMOVE_IPK_PACKAGES := \
-	luci-theme-c2000max-ui luci-theme-mwrt luci-theme-argon luci-theme-bootstrap luci-app-argon-config luci-i18n-argon-config-zh-cn \
-	luci-app-quickstart luci-i18n-quickstart-zh-cn quickstart \
-	luci-app-homeproxy luci-i18n-homeproxy-zh-cn homeproxy sing-box \
-	luci-app-ddns-go luci-i18n-ddns-go-zh-cn ddns-go \
-	luci-app-ddnsto ddnsto \
-	luci-app-wol luci-i18n-wol-zh-cn wol etherwake \
-	luci-app-linkease luci-i18n-linkease-zh-cn linkease linkmount
+C2000MAX_REMOVE_IPK_PACKAGES := 
 
 define Build/append-c2000max-kernel
 	dd if=$(C2000MAX_SD_KERNEL) >> $@
