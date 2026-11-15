@@ -180,6 +180,39 @@ jobs:
         run: |
           set -euo pipefail
 
+          # 这个仓库的 scripts/config 是目录，不是可执行文件；
+          # 直接用 Python 改 .config，避免依赖工具路径。
+          cat > /tmp/edit-config.py <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          mode = sys.argv[1]
+          sym = sys.argv[2]
+          path = Path('.config')
+          text = path.read_text(encoding='utf-8')
+          escaped = re.escape(sym)
+
+          if mode == 'disable':
+              text = re.sub(rf'(?m)^{escaped}=.*$', lambda _m: f'# {sym} is not set', text)
+              if not re.search(rf'(?m)^# {escaped} is not set$', text):
+                  text += f'\n# {sym} is not set\n'
+          elif mode == 'enable':
+              text = re.sub(rf'(?m)^# {escaped} is not set$', lambda _m: f'{sym}=y', text)
+              text = re.sub(rf'(?m)^{escaped}=.*$', lambda _m: f'{sym}=y', text)
+              if not re.search(rf'(?m)^{escaped}=y$', text):
+                  text += f'\n{sym}=y\n'
+          elif mode == 'str':
+              value = sys.argv[3]
+              text = re.sub(rf'(?m)^{escaped}=.*$', lambda _m: f'{sym}="{value}"', text)
+              if not re.search(rf'(?m)^{escaped}=', text):
+                  text += f'\n{sym}="{value}"\n'
+          else:
+              raise SystemExit(f'unknown mode: {mode}')
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
           # 镜像装配阶段的“强制注入”列表会要求每个 ipk 都已编出。
           # lean 模式清空它，让最终的包集合完全由 .config 决定。
           trim_extra() {
@@ -228,7 +261,7 @@ jobs:
           # 先移除，再追加，最后 defconfig 统一解析依赖。
           for pkg in $(printf '%s' "$REMOVE_PACKAGES" | tr ',' ' '); do
             [ -n "$pkg" ] || continue
-            ./scripts/config -d "CONFIG_PACKAGE_${pkg}" || true
+            python3 /tmp/edit-config.py disable "CONFIG_PACKAGE_${pkg}"
           done
 
           for pkg in $(printf '%s' "$EXTRA_PACKAGES" | tr ',' ' '); do
@@ -240,10 +273,10 @@ jobs:
             printf '%s\n' "$EXTRA_CONFIG" | tr ';' '\n' >> .config
           fi
 
-          ./scripts/config -e CONFIG_CCACHE
+          python3 /tmp/edit-config.py enable CONFIG_CCACHE
 
           if [ -n "$VERSION" ]; then
-            ./scripts/config --set-str CONFIG_VERSION_NUMBER "$VERSION" || true
+            python3 /tmp/edit-config.py str CONFIG_VERSION_NUMBER "$VERSION"
           fi
 
           make defconfig
