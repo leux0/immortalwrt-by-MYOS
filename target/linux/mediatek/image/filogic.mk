@@ -3503,46 +3503,21 @@ define Device/nradio_c2000-max
   BOARD_NAME := HCMT7987-EMMC
   SUPPORTED_DEVICES += nradio,c2000-max HCMT7987-EMMC HCMT7987-SNSD
   DEVICE_PACKAGES := \
-	luci-theme-myos-new luci-app-myos-system flock ip6tables-nft iptables-mod-socket kmod-ipt-socket kmod-ipt-nat-extra iptables-mod-nat-extra python3-ctypes luci-app-uugamebooster mt5700-web-go luci-app-mt5700-web \
-	libip4tc libip6tc iptables-mod-extra kmod-ipt-extra \
-	kmod-mediatek_hnat \
-	kmod-oaf appfilter luci-app-oaf luci-i18n-oaf-zh-cn \
-	kmod-hwmon-pwmfan \
+	kmod-mediatek_hnat kmod-hwmon-pwmfan \
 	mt798x-2p5g-phy-firmware-internal \
 	kmod-ifb kmod-sfp kmod-ebtables \
 	kmod-mtk_wed kmod-mtk_pci kmod-warp \
-	kmod-tun openvpn-openssl libcap-ng liblzo2 liblz4-1 \
-	luci-app-openvpn luci-i18n-openvpn-zh-cn \
 	kmod-mt_wifi_osal kmod-mt_wifi7 kmod-mt_hwifi kmod-connac_if \
 	kmod-mt7993 kmod-mt7993_dbg kmod-mt799a \
 	wifi-dats wifi-scripts wifi-profile mtwifi-cfg luci-app-mtwifi-cfg \
-	luci-app-store miniupnpd-nftables luci-app-upnp luci-i18n-upnp-zh-cn \
-	python3-light uhttpd uhttpd-mod-ubus \
-	f2fsck mkf2fs e2fsprogs losetup fdisk \
-	zram-swap kmod-zram \
 	kmod-usb3 kmod-usb-core kmod-usb-xhci-hcd kmod-usb-xhci-mtk \
-	kmod-usb-acm kmod-usb-ehci kmod-usb-ohci kmod-usb-uhci \
-	kmod-usb-storage kmod-usb-net kmod-usb-net-cdc-ether \
-	kmod-usb-net-cdc-mbim kmod-usb-net-cdc-ncm \
-	kmod-usb-net-huawei-cdc-ncm kmod-usb-net-qmi-wwan \
-	kmod-usb-net-rndis kmod-usb-net-sierrawireless \
-	kmod-usb-serial kmod-usb-serial-option \
+	kmod-usb-acm kmod-usb-ehci kmod-usb-ohci kmod-usb-uhci kmod-usb-storage \
+	kmod-usb-net kmod-usb-net-cdc-ether kmod-qmi_wwan_q kmod-qmi_wwan_f \
+	kmod-usb-net-cdc-mbim kmod-usb-net-cdc-ncm kmod-usb-net-qmi-wwan \
+	kmod-usb-net-rndis kmod-usb-serial kmod-usb-serial-option \
 	kmod-usb-serial-qualcomm kmod-usb-serial-wwan \
-	kmod-usb-wdm kmod-mhi-bus kmod-mhi-pci-generic \
-	kmod-mhi-net kmod-mhi-wwan-ctrl kmod-mhi-wwan-mbim \
-	kmod-pcie_mhi kmod-qmi_wwan_q kmod-qmi_wwan_f \
-	quectel-CM-5G quectel-CM-5G-M qmodem \
-	mosquitto-ssl lua-mosquitto lua-md5 -luci-app-turboacc \
-	luci-app-diskman luci-app-fancontrol luci-app-eqos-mtk luci-app-wrtbwmon \
-	openssh-sftp-server openssh-sftp-avahi-service wireguard-tools \
-	coreutils-base64 coreutils-nohup coreutils-timeout lyaml \
-	libyaml libudns resolveip libev \
-	libsodium kmod-netlink-diag ip-full libuci-lua \
-	libbpf libelf iptables-mod-tproxy kmod-ipt-tproxy \
-	libpcap kmod-ipt-ipset ipset libipset \
-	tc-full kmod-netem conntrack conntrackd \
-	kmod-sched kmod-sched-core libnetfilter-cthelper libnetfilter-cttimeout \
-	libnetfilter-queue libltdl liblua5.3
+	zram-swap kmod-zram \
+	luci-app-diskman luci-app-fancontrol luci-app-eqos-mtk
   KERNEL_LOADADDR := 0x40080000
   KERNEL := kernel-bin | lzma | fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb | \
 	c2000max-firmware-permissions
